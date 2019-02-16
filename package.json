@@ -1,0 +1,24 @@
+{
+	"name": "test22",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"start": "set PORT=80 && node ./bin/www",
+		"dev": "set PORT=80 && nodemon -e .ejs,.js ./bin/www --exec babel-node --presets babel-preset-env"
+	},
+	"dependencies": {
+		"debug": "~2.6.9",
+		"ejs": "~2.5.7",
+		"express": "~4.16.0",
+		"http-errors": "~1.6.2",
+		"morgan": "~1.9.0",
+		"ytdl-core": "^0.24.0"
+	},
+	"devDependencies": {
+		"babel-preset-env": "^1.7.0",
+		"nodemon": "^1.18.3"
+	},
+	"babel": {
+		"presets": "env"
+	}
+}
