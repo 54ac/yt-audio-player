@@ -40,7 +40,7 @@ function tickerInterval(action) {
 }
 
 function checkThumbnail(url) {
-	fetch("/img?url=" + url.replace("/default", "/maxresdefault"))
+	fetch("img?url=" + url.replace("/default", "/maxresdefault"))
 		.then(res => res.json())
 		.then(json => {
 			if (json.status === 200) {
@@ -77,7 +77,8 @@ function playSong(url) {
 		document.getElementById("player").style.display = "initial";
 
 		document.getElementById("thumbnail").style.visibility = "hidden";
-		checkThumbnail(data[url].thumbnail_url);
+		var thumbArr = data[url].player_response.videoDetails.thumbnail.thumbnails;
+		checkThumbnail(thumbArr[thumbArr.length - 1].url);
 		document.getElementById("controls").style.visibility = "hidden";
 		progressBar.style.visibility = "hidden";
 		document.getElementById("timeStamps").style.visibility = "hidden";
@@ -106,8 +107,7 @@ function playSong(url) {
 				data[url].title
 			} – ${data[url].author.name}`;
 
-			document.title =
-				data[url].title + " – The Questionably Legal YouTube Audio Player";
+			document.title = data[url].title + " – The YouTube Audio Player";
 			document.getElementById("thumbnail").style.visibility = "visible";
 			document.getElementById("controls").style.visibility = "visible";
 			progressBar.style.visibility = "visible";
@@ -181,7 +181,7 @@ function addSong(url) {
 	document.getElementById("submitButton").value = "arrow_downward";
 	document.getElementById("urlInput").disabled = true;
 	document.getElementById("submitButton").disabled = true;
-	fetch("/get?url=" + songURL)
+	fetch("get?url=" + songURL)
 		.then(res => res.json())
 		.then(json => {
 			let entry = document.getElementById("playlist").insertRow(-1); //this whole table is just my way of making an ordered list that isn't terrible
@@ -345,7 +345,7 @@ window.onload = () => {
 	playlistDeleteButton.style.cursor = "pointer";
 	playlistDeleteButton.addEventListener("click", () => {
 		playButton.click();
-		document.title = "The Questionably Legal YouTube Audio Player";
+		document.title = "The YouTube Audio Player";
 		document.getElementById("playlist").innerHTML = "";
 		entries = [];
 		data = {};
@@ -365,7 +365,7 @@ window.onload = () => {
 		if (document.getElementById("playlist").rows.length > 1) {
 			skipSong("fwd");
 		} else {
-			document.title = "The Questionably Legal YouTube Audio Player";
+			document.title = "The YouTube Audio Player";
 			playButton.click();
 		}
 	});

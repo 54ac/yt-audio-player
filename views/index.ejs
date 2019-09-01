@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>The Questionably Legal YouTube Audio Player</title>
+	<title>The YouTube Audio Player</title>
 	<meta name="viewport" content="width=device-width">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -16,8 +16,8 @@
 	<div id="content">
 		<div class="container">
 			<div id="urlContainer">
-				<form id="getURL"><label for="urlInput">YouTube URL: </label><input type="text" id="urlInput" name="urlInput"> <input
-					 type="submit" id="submitButton" class="material-icons" value="check"></form>
+				<form id="getURL"><label for="urlInput">YouTube URL: </label><input type="text" id="urlInput" name="urlInput">
+					<input type="submit" id="submitButton" class="material-icons" value="check"></form>
 			</div>
 			<div id="player" style="display: none;">
 				<div><img id="thumbnail"></div>
@@ -26,11 +26,13 @@
 					<div id="timeStamps"><span id="currentTime"></span><span id="totalTime"></span></div>
 					<progress value="0" id="progressBar" style="visibility: hidden;"></progress>
 				</div>
-				<div id="controls" style="visibility: hidden;"><i id="volumeOffButton" class="material-icons off" style="color: gainsboro;">volume_off</i><i
-					 id="skipPreviousButton" class="material-icons" style="visibility: hidden;">skip_previous</i><i id="replayButton" class="material-icons">replay</i><i
-					 id="playButton" class="material-icons">play_arrow</i><i id="skipNextButton" class="material-icons" style="visibility: hidden;">skip_next</i><i
-					 id="repeatButton" class="material-icons off" style="color: gainsboro;">repeat</i><i id="shuffleButton" class="material-icons off"
-					 style="color: gainsboro;">shuffle</i></div>
+				<div id="controls" style="visibility: hidden;"><i id="volumeOffButton" class="material-icons off"
+						style="color: gainsboro;">volume_off</i><i id="skipPreviousButton" class="material-icons"
+						style="visibility: hidden;">skip_previous</i><i id="replayButton" class="material-icons">replay</i><i
+						id="playButton" class="material-icons">play_arrow</i><i id="skipNextButton" class="material-icons"
+						style="visibility: hidden;">skip_next</i><i id="repeatButton" class="material-icons off"
+						style="color: gainsboro;">repeat</i><i id="shuffleButton" class="material-icons off"
+						style="color: gainsboro;">shuffle</i></div>
 			</div>
 		</div>
 		<div class="container">
@@ -40,12 +42,11 @@
 				<i id="playlistDeleteButton" class="material-icons" style="visibility: hidden;">cancel</i>
 			</div>
 			<div id="disclaimer">
-				<p><i class="material-icons">info</i>This player uses only the audio stream of the provided YouTube videos as a way of
-					saving data. Written while listening exclusively to New York hip hop group Wu Tang Clan’s magnum opus Enter the Wu-Tang
-					(36 Chambers). Uses <a href="https://github.com/fent/node-ytdl-core">node-ytdl-core</a>.</p>
-				<p>Note: I’m pretty sure this is against YouTube’s TOS. This is just a proof of concept. Please don’t actually use this.
-					Thanks.
-				</p>
+				<p><i class="material-icons">info</i>This player uses only the audio stream of the provided YouTube videos as a
+					way of saving data. Written while listening exclusively to New York hip hop group Wu Tang Clan’s magnum opus
+					Enter the Wu-Tang (36 Chambers). Uses <a href="https://github.com/fent/node-ytdl-core">node-ytdl-core</a>.</p>
+				<p>Note: This is a demo of <a href="https://github.com/rowrawer/yt-audio-player">this GitHub repo</a>. Please
+					don’t actually use this. Thanks.</p>
 			</div>
 		</div>
 	</div>
