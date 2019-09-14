@@ -1,3 +1,5 @@
+import "./main.css";
+
 var audio = new Audio();
 var entries = [];
 var data = {};
@@ -40,16 +42,17 @@ function tickerInterval(action) {
 }
 
 function checkThumbnail(url) {
-	fetch("img?url=" + url.replace("/default", "/maxresdefault"))
+	//this checks whether a high-res thumbnail exists
+	fetch("api/img?url=" + url)
 		.then(res => res.json())
 		.then(json => {
 			if (json.status === 200) {
-				document.getElementById("thumbnail").src = url.replace(
-					"/default",
-					"/maxresdefault"
-				);
+				document.getElementById("thumbnail").src = url;
 			} else {
-				document.getElementById("thumbnail").src = "";
+				document.getElementById("thumbnail").src = url.replace(
+					"/maxresdefault",
+					"/hqdefault"
+				);
 			}
 		});
 }
@@ -77,8 +80,11 @@ function playSong(url) {
 		document.getElementById("player").style.display = "initial";
 
 		document.getElementById("thumbnail").style.visibility = "hidden";
+		console.log(data[url].player_response.videoDetails.thumbnail.thumbnails);
 		var thumbArr = data[url].player_response.videoDetails.thumbnail.thumbnails;
-		checkThumbnail(thumbArr[thumbArr.length - 1].url);
+		checkThumbnail(
+			thumbArr[thumbArr.length - 1].url.replace("/hqdefault", "/maxresdefault")
+		);
 		document.getElementById("controls").style.visibility = "hidden";
 		progressBar.style.visibility = "hidden";
 		document.getElementById("timeStamps").style.visibility = "hidden";
@@ -103,9 +109,9 @@ function playSong(url) {
 
 			document.getElementById("nowPlaying").className = "";
 			document.getElementById("nowPlaying").style.fontSize = "18px";
-			document.getElementById("nowPlaying").textContent = `${
-				data[url].title
-			} – ${data[url].author.name}`;
+			document.getElementById(
+				"nowPlaying"
+			).textContent = `${data[url].title} – ${data[url].author.name}`;
 
 			document.title = data[url].title + " – The YouTube Audio Player";
 			document.getElementById("thumbnail").style.visibility = "visible";
@@ -181,7 +187,7 @@ function addSong(url) {
 	document.getElementById("submitButton").value = "arrow_downward";
 	document.getElementById("urlInput").disabled = true;
 	document.getElementById("submitButton").disabled = true;
-	fetch("get?url=" + songURL)
+	return fetch("api/get?url=" + songURL)
 		.then(res => res.json())
 		.then(json => {
 			let entry = document.getElementById("playlist").insertRow(-1); //this whole table is just my way of making an ordered list that isn't terrible
@@ -193,9 +199,7 @@ function addSong(url) {
 
 			let cell1 = entry.insertCell(1);
 			cell1.id = songURL; //assign video id to this cell
-			cell1.textContent = `${json.data.title} – ${
-				json.data.author.name
-			} (${timeStamp})`;
+			cell1.textContent = `${json.data.title} – ${json.data.author.name} (${timeStamp})`;
 			cell1.addEventListener("click", () => {
 				if (json.directURL !== audio.src) playSong(json.directURL);
 			});
@@ -241,15 +245,9 @@ function addSong(url) {
 		});
 }
 
-window.onload = () => {
+window.onload = async () => {
 	document.getElementById("urlInput").value = "";
 	document.getElementById("content").style.visibility = "visible";
-
-	if (localStorage.getItem("entries")) {
-		for (let entry of JSON.parse(localStorage.getItem("entries"))) {
-			addSong(entry);
-		}
-	}
 
 	getURL = document.getElementById("getURL");
 	getURL.onsubmit = e => {
@@ -360,6 +358,11 @@ window.onload = () => {
 		progressBar.value = percentage / 100;
 		audio.currentTime = percentage * duration;
 	});
+
+	//why are babel workarounds necessary for async/await these days
+	if (localStorage.getItem("entries"))
+		for (let entry of JSON.parse(localStorage.getItem("entries")))
+			await addSong(entry);
 
 	audio.addEventListener("ended", () => {
 		if (document.getElementById("playlist").rows.length > 1) {

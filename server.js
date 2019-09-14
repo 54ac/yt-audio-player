@@ -1,14 +1,25 @@
 const express = require("express");
+const helmet = require("helmet");
 const http = require("http");
 const url = require("url");
-const router = express.Router();
 const ytdl = require("ytdl-core");
 
-router.get("/img", (req, res, next) => {
+const app = express();
+const port = process.env.PORT || 4522;
+
+app.use(helmet());
+
+app.use((err, req, res, next) => {
+	console.error(err.stack);
+	res.status(500).send("oh no error");
+});
+
+app.get("/api/img", (req, res, next) => {
 	let imgURL = url.parse(req.query.url);
 	http
 		.request(
 			{
+				//head because we only care about whether it exists or not
 				method: "HEAD",
 				hostname: imgURL.hostname,
 				path: imgURL.pathname,
@@ -24,7 +35,7 @@ router.get("/img", (req, res, next) => {
 		.end();
 });
 
-router.get("/get", (req, res, next) => {
+app.get("/api/get", (req, res, next) => {
 	ytdl.getInfo(
 		"https://www.youtube.com/watch?v=" + req.query.url,
 		(err, data) => {
@@ -45,8 +56,12 @@ router.get("/get", (req, res, next) => {
 	);
 });
 
-router.get("/", (req, res, next) => {
-	res.render("index");
+app.get("/*", (req, res) => {
+	res.status(403).send("absolutely not");
 });
 
-module.exports = router;
+app.post("/*", (req, res) => {
+	res.status(403).send("absolutely not");
+});
+
+app.listen(port, "localhost", () => console.log(`listening on port ${port}`));

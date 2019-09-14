@@ -27,8 +27,3 @@ There will soon be a demo link here.
 1. `git clone https://github.com/rowrawer/yt-audio-player.git .`
 2. `npm i`
 3. `npm start`
-
----
-
-### Additional notes
-I wrote this quite some time ago, using an outdated boilerplate. Ideally I'd rewrite the guts of this thing entirely, but there's no real reason to do so, considering it does work.

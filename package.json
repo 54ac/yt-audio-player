@@ -3,23 +3,30 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"start": "set PORT=5422 && node ./bin/www",
-		"prod": "set PORT=5422 && set NODE_ENV=production && node ./bin/www",
-		"dev": "set PORT=5422 && nodemon -e .ejs,.js ./bin/www --exec babel-node --presets babel-preset-env"
+		"start": "npm run dev",
+		"dev": "concurrently \"nodemon server.js\" \"webpack-dev-server --config dev.config.js --open\"",
+		"back": "node server.js",
+		"build": "webpack --config prod.config.js"
 	},
 	"dependencies": {
-		"debug": "^4.1.1",
-		"ejs": "^2.6.2",
+		"@babel/runtime": "^7.6.0",
 		"express": "^4.17.1",
-		"http-errors": "^1.7.3",
-		"morgan": "^1.9.1",
+		"helmet": "^3.21.0",
 		"ytdl-core": "^0.29.5"
 	},
 	"devDependencies": {
-		"babel-preset-env": "^1.7.0",
-		"nodemon": "^1.19.1"
-	},
-	"babel": {
-		"presets": "env"
+		"@babel/core": "^7.6.0",
+		"@babel/plugin-transform-runtime": "^7.6.0",
+		"@babel/preset-env": "^7.6.0",
+		"babel-loader": "^8.0.6",
+		"concurrently": "^4.1.2",
+		"css-loader": "^3.2.0",
+		"html-loader": "^0.5.5",
+		"html-webpack-plugin": "^3.2.0",
+		"nodemon": "^1.19.2",
+		"style-loader": "^1.0.0",
+		"webpack": "^4.40.2",
+		"webpack-cli": "^3.3.8",
+		"webpack-dev-server": "^3.8.0"
 	}
 }
