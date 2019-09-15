@@ -1,5 +1,12 @@
 {
-	"name": "test22",
+	"name": "yt-audio-player",
+	"description": "A YouTube audio-only player consisting of a Javascript frontend and Node.js backend.",
+	"author": {
+		"name": "rowrawer",
+		"email": "rowrawer@gmail.com",
+		"url": "https://github.com/rowrawer"
+	},
+	"repository": "github:rowrawer/yt-audio-player",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {

@@ -21,7 +21,7 @@ Mostly familiarizing myself with the Web Audio API and practicing DOM manipulati
 3. Listen.
 
 ### Where can I use this?
-There will soon be a demo link here.
+**[Check out this demo right here.](http://rowrawer.cf:5422/)**
 
 ### How do I launch this myself?
 1. `git clone https://github.com/rowrawer/yt-audio-player.git .`
