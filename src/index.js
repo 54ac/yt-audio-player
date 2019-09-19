@@ -80,7 +80,6 @@ function playSong(url) {
 		document.getElementById("player").style.display = "initial";
 
 		document.getElementById("thumbnail").style.visibility = "hidden";
-		console.log(data[url].player_response.videoDetails.thumbnail.thumbnails);
 		var thumbArr = data[url].player_response.videoDetails.thumbnail.thumbnails;
 		checkThumbnail(
 			thumbArr[thumbArr.length - 1].url.replace("/hqdefault", "/maxresdefault")
@@ -220,8 +219,6 @@ function addSong(url) {
 					.deleteRow(e.target.parentNode.parentNode.rowIndex);
 				if (document.getElementById("playlist").rows.length < 2)
 					playlistDeleteButton.style.visibility = "hidden";
-				if (document.getElementById("playlist").rows.length < 1)
-					document.getElementById("player").style.display = "none";
 			});
 
 			let cell2 = entry.insertCell(2);
@@ -236,7 +233,11 @@ function addSong(url) {
 			document.getElementById("urlInput").disabled = false;
 			document.getElementById("submitButton").disabled = false;
 			document.getElementById("submitButton").value = "check";
-			if (document.getElementById("playlist").rows.length < 2 && !url)
+			if (
+				document.getElementById("playlist").rows.length < 2 &&
+				!url &&
+				!audio.src
+			)
 				playSong(json.directURL);
 		})
 		.catch(err => {
@@ -342,13 +343,11 @@ window.onload = async () => {
 	playlistDeleteButton = document.getElementById("playlistDeleteButton");
 	playlistDeleteButton.style.cursor = "pointer";
 	playlistDeleteButton.addEventListener("click", () => {
-		playButton.click();
 		document.title = "The YouTube Audio Player";
 		document.getElementById("playlist").innerHTML = "";
 		entries = [];
 		data = {};
 		localStorage.removeItem("entries");
-		document.getElementById("player").style.display = "none";
 		playlistDeleteButton.style.visibility = "hidden";
 	});
 
