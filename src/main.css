@@ -2,6 +2,7 @@ html, body {
 	width: 100%;
 	height: 100%;
 	margin: 0;
+	padding: 0;
 }
 
 #content {
@@ -11,11 +12,11 @@ html, body {
 	right: 0;
 	bottom: 0;
 	display: grid;
+	justify-items: center;
 	grid-column-gap: 16px;
 	grid-template-columns: repeat(2, 1fr);
 	visibility: hidden;
 	font: 14px "Roboto Mono", sans-serif;
-	padding: 8px;
 	box-sizing: border-box;
 	text-align: center;
 	max-width: 1280px;
@@ -25,26 +26,23 @@ html, body {
 	-webkit-user-select: none;
 	-ms-user-select: none;
 }
-
-@media screen and (orientation: portrait) {
-	#content {
-		max-width: 640px;
-		grid-template-columns: 1fr;
-	}
-}
-
-@media screen and (orientation: landscape) {
-	#content {
-		max-width: 1280px;
-		grid-template-columns: 1fr 1fr;
-	}
-}
-
 .container {
 	padding: 12px;
 	box-sizing: border-box;
-	min-width: 408px;
-	max-width: 640px;
+	width: 408px;
+}
+
+
+@media screen and (orientation: portrait) {
+	#content {
+		grid-template-columns: 1fr;
+	}
+
+	.container {
+		padding: 12px;
+		box-sizing: border-box;
+		width: 100%;
+	}
 }
 
 #urlContainer {
@@ -87,8 +85,7 @@ img {
 	line-height: 1.5em;
 	font-size: 18px;
 	padding: 24px 0;
-	min-width: 408px;
-	max-width: 100%;
+	width: 408px;
 	display: inline-block;
 }
 

@@ -170,11 +170,11 @@ function addSong(url) {
 		if (url) songURL = url;
 		else {
 			songURL = new URL(document.getElementById("urlInput").value);
-			if (
-				songURL.hostname.includes("youtube.com") ||
-				songURL.hostname.includes("youtu.be")
-			) {
+			console.log(songURL);
+			if (songURL.hostname.includes("youtube.com")) {
 				songURL = songURL.searchParams.get("v");
+			} else if (songURL.hostname.includes("youtu.be")) {
+				songURL = songURL.pathname.slice(1, songURL.pathname.length);
 			} else throw "wrong URL";
 			if (!url && entries.includes(songURL)) throw "URL already in the list";
 		}
