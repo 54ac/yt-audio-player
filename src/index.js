@@ -92,8 +92,8 @@ function playSong(url) {
 		document.getElementById("nowPlaying").style.fontSize = "54px";
 		document.getElementById("nowPlaying").textContent = "cached";
 
-		progressBar.max = data[url].length_seconds;
-		duration = data[url].length_seconds; //audio.duration returns incorrect values
+		progressBar.max = data[url].videoDetails.lengthSeconds;
+		duration = data[url].videoDetails.lengthSeconds; //audio.duration returns incorrect values
 
 		audio.oncanplay = () => {
 			audio.play();
@@ -103,16 +103,17 @@ function playSong(url) {
 				Math.floor(audio.currentTime)
 			);
 			document.getElementById("totalTime").textContent = convertTime(
-				data[url].length_seconds
+				data[url].videoDetails.lengthSeconds
 			);
 
 			document.getElementById("nowPlaying").className = "";
 			document.getElementById("nowPlaying").style.fontSize = "18px";
 			document.getElementById(
 				"nowPlaying"
-			).textContent = `${data[url].title} – ${data[url].author.name}`;
+			).textContent = `${data[url].videoDetails.title} – ${data[url].videoDetails.author.name}`;
 
-			document.title = data[url].title + " – The YouTube Audio Player";
+			document.title =
+				data[url].videoDetails.title + " – The YouTube Audio Player";
 			document.getElementById("thumbnail").style.visibility = "visible";
 			document.getElementById("controls").style.visibility = "visible";
 			progressBar.style.visibility = "visible";
@@ -170,7 +171,6 @@ function addSong(url) {
 		if (url) songURL = url;
 		else {
 			songURL = new URL(document.getElementById("urlInput").value);
-			console.log(songURL);
 			if (songURL.hostname.includes("youtube.com")) {
 				songURL = songURL.searchParams.get("v");
 			} else if (songURL.hostname.includes("youtu.be")) {
@@ -194,11 +194,11 @@ function addSong(url) {
 
 			let cell0 = entry.insertCell(0);
 			cell0.className = "playlistIndex"; //counter in css
-			let timeStamp = convertTime(json.data.length_seconds);
+			let timeStamp = convertTime(json.data.videoDetails.lengthSeconds);
 
 			let cell1 = entry.insertCell(1);
 			cell1.id = songURL; //assign video id to this cell
-			cell1.textContent = `${json.data.title} – ${json.data.author.name} (${timeStamp})`;
+			cell1.textContent = `${json.data.videoDetails.title} – ${json.data.videoDetails.author.name} (${timeStamp})`;
 			cell1.addEventListener("click", () => {
 				if (json.directURL !== audio.src) playSong(json.directURL);
 			});
