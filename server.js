@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require("express");
 const helmet = require("helmet");
 const http = require("http");
@@ -11,49 +12,57 @@ app.use(helmet());
 
 app.use((err, req, res, next) => {
 	console.error(err.stack);
-	res.status(500).send("oh no error");
+	res.status(418).send("oh no error");
 });
 
 app.get("/api/img", (req, res, next) => {
-	let imgURL = url.parse(req.query.url);
+	const imgURL = url.parse(req.query.url);
 	http
 		.request(
 			{
-				//head because we only care about whether it exists or not
+				// head because we only care about whether it exists or not
 				method: "HEAD",
 				hostname: imgURL.hostname,
 				path: imgURL.pathname,
 				port: imgURL.port
 			},
-			response => {
-				res.send(JSON.stringify({ status: response.statusCode }));
+			(response) => {
+				res.json({ status: response.statusCode });
 			}
 		)
-		.on("error", err => {
-			throw err;
+		.on("error", (err) => {
+			next(err);
 		})
 		.end();
 });
 
-app.get("/api/get", (req, res, next) => {
-	ytdl.getInfo(
-		"https://www.youtube.com/watch?v=" + req.query.url,
-		(err, data) => {
-			if (err) throw err;
-			res.setHeader("Content-Type", "application/json");
-			let filterURL = ytdl.chooseFormat(data.formats, {
-				filter: "audioonly",
-				quality: "highest"
-			}).url;
-			if (filterURL)
-				res.send(
-					JSON.stringify({
-						data: data,
-						directURL: filterURL
-					})
-				);
-		}
-	);
+app.get("/api/get", async (req, res, next) => {
+	let data;
+	let filterURL;
+
+	try {
+		data = await ytdl.getInfo(
+			"https://www.youtube.com/watch?v=" + req.query.url
+		);
+	} catch (err) {
+		next(err);
+		return;
+	}
+
+	try {
+		filterURL = ytdl.chooseFormat(data.formats, {
+			filter: "audioonly",
+			quality: "highest"
+		}).url;
+	} catch (err) {
+		next(err);
+		return;
+	}
+
+	res.json({
+		data: data,
+		directURL: filterURL
+	});
 });
 
 app.get("/*", (req, res) => {

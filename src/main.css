@@ -1,4 +1,7 @@
-html, body {
+/* stylelint-disable selector-id-pattern, selector-class-pattern */
+
+html,
+body {
 	width: 100%;
 	height: 100%;
 	margin: 0;
@@ -22,16 +25,13 @@ html, body {
 	max-width: 1280px;
 	margin: 0 auto;
 	user-select: none;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
 }
+
 .container {
 	padding: 12px;
 	box-sizing: border-box;
 	width: 408px;
 }
-
 
 @media screen and (orientation: portrait) {
 	#content {
@@ -57,8 +57,8 @@ input {
 	border: none;
 	background-color: gainsboro;
 	vertical-align: middle;
-  position: relative;
-  bottom: 1px;
+	position: relative;
+	bottom: 1px;
 }
 
 input[type="submit"] {
@@ -89,14 +89,19 @@ img {
 	display: inline-block;
 }
 
-#nowPlaying.material-icons{
+#nowPlaying.material-icons {
 	height: 1.5em;
 	animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 #currentTime {
@@ -117,9 +122,21 @@ progress {
 	color: black;
 	cursor: pointer;
 }
-progress::-moz-progress-bar { background-color: black; border-radius: 4px; }
-progress::-webkit-progress-bar { background-color: gainsboro; border-radius: 4px; }
-progress::-webkit-progress-value { background-color: black; border-radius: 4px; }
+
+progress::-moz-progress-bar {
+	background-color: black;
+	border-radius: 4px;
+}
+
+progress::-webkit-progress-bar {
+	background-color: gainsboro;
+	border-radius: 4px;
+}
+
+progress::-webkit-progress-value {
+	background-color: black;
+	border-radius: 4px;
+}
 
 #controls {
 	display: grid;
@@ -155,7 +172,7 @@ td {
 
 #playlistDeleteButton {
 	font-size: 36px;
-	padding: 0 0 16px 0;
+	padding: 0 0 16px;
 }
 
 #disclaimer {
