@@ -3,7 +3,7 @@
 	"description": "A YouTube audio-only player consisting of a Javascript frontend and Node.js backend.",
 	"author": {
 		"name": "54ac",
-		"email": "me@54ac.bio",
+		"email": "54acbio@gmail.com",
 		"url": "https://github.com/54ac"
 	},
 	"repository": "github:54ac/yt-audio-player",
