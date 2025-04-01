@@ -2,11 +2,11 @@
 
 ### What is this?
 
-This is a YouTube audio-only player consisting of a Javascript frontend and Node.js backend.
+This is a YouTube audio-only player consisting of a JavaScript frontend and Node.js backend.
 
 ### What is this written in?
 
-- Javascript (pure),
+- JavaScript,
 - Node.js.
 
 ### What are some of the main features?
@@ -25,10 +25,6 @@ Mostly familiarizing myself with the Web Audio API and practicing DOM manipulati
 1. Paste YouTube URL in the appropriate input field,
 2. Select the video in the playlist,
 3. Listen.
-
-### Where can I use this?
-
-**[Check out this demo right here.](https://54ac.ovh:5422/)**
 
 ### How do I launch this myself?
 
